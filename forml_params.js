@@ -3,6 +3,9 @@ var http= require("http"),
 
 
 http.createServer(function (req,res) {
+
+	console.log(req);
+	
 fs.readFile("./index.html", function (error,html) {
 	var html_string=html.toString();
 
