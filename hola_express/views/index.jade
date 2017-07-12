@@ -1,5 +1,21 @@
 html
-	head
-		title Mi Primera pagina con Express
-		body
-			h1!= hola
+    head
+        title Mi Primera pagina con Express
+        body
+            //- este es un comentario
+            - var arreglo=[1,2,3,4,5,6,80,99];
+            //-for (var i = arreglo.length - 1; i >= 0; i--) 
+                //p Hola #{arreglo[i]+1}
+                //if false
+                  //  p.
+                    //    Hola haz clic en #[a(href="proeduka.com") este link]
+
+
+            each item in arreglo
+                case item
+                    when 1
+                        p El item era uno
+                    when 2
+                        p El item era dos
+                    default
+                        p Otro tipo de numero
