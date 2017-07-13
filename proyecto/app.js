@@ -1,6 +1,8 @@
 var express = require("express");
 
 var app = express();
+app.use("estatico",express.static("public"));
+app.use("estatico",express.static("assets"));
 
 app.set("view engine", "jade");
 
