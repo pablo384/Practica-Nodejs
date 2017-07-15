@@ -1,6 +1,19 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 var app = express();
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+
+//conexion con bd
+mongoose.cobbect("mongodb://localhost/fotos");
+
+var userSchemaJSON={
+	email:String,
+	password:String
+};
+
+var user_schema = new Schema(user_schema);
+var user = mongoose.model("User", user_schema);
  
 app.use("estatico",express.static("public"));
 app.use("estatico",express.static("assets"));
