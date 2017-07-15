@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 var app = express();
-
+ 
 app.use("estatico",express.static("public"));
 app.use("estatico",express.static("assets"));
 app.use(bodyParser.json()); //peticiones application/json
