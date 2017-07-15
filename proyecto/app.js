@@ -58,21 +58,6 @@ app.post("/users", function (req,res) {
 		
 	})
 	
-// 	MongoClient.connect(uri, function(err, db) {
-// 	 // Paste the following examples here
-// //--------------------------------------------
-// 	db.collection('inventory').insertMany([
-// 	   // MongoDB adds the _id field with an ObjectId if _id is not present
-// 	   {email: req.body.email password:req.body.password}
-// 	])
-// 	.then(function(result) {
-// 	  // process result
-// 	});
-// //----------------------------------------------
-
-// 	  db.close();
-// 	});
-	
 })
 
 app.listen(8080);
