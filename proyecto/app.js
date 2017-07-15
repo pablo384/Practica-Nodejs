@@ -5,7 +5,9 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 //conexion con bd
-mongoose.cobbect("mongodb://localhost/fotos");
+mongoose.createConnection("mongodb://localhost/fotos", {
+	useMongoClient: true,
+});
 
 var userSchemaJSON={
 	email:String,
@@ -13,7 +15,8 @@ var userSchemaJSON={
 };
 
 var user_schema = new Schema(user_schema);
-var user = mongoose.model("User", user_schema);
+var User = mongoose.model("User", user_schema);
+// mongoose.then(function(User){});
  
 app.use("estatico",express.static("public"));
 app.use("estatico",express.static("assets"));
@@ -26,14 +29,27 @@ app.get("/", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-	res.render("login");
+	User.find(function (err,doc) {
+		console.log(doc);
+		res.render("login");
+	})
+	
 });
 
 app.post("/users", function (req,res) {
+	//creando usuario
+	var user = new User({email:req.body.email, password:req.body.password});
 
-	console.log("Contrasena "+req.body.password);
-	console.log("Email "+req.body.email);
-	res.send("Recibimos tus datos");
+	user.save(function (err) {
+		if (err) {console.log(err)}
+		else {
+			res.send("Recibimos tus datos");
+		}
+
+	})
+	// console.log("Contrasena "+req.body.password);
+	// console.log("Email "+req.body.email);
+	
 })
 
 app.listen(8080);
