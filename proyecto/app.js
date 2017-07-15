@@ -1,30 +1,8 @@
 var express = require("express");
 var bodyParser=require("body-parser");
+var User = require("./models/user").User;
 var app = express();
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
 
-//mongoAtlas
-// var MongoClient = require('mongodb').MongoClient;
-
-var uri = "mongodb://pablo384:2323@pruebas-shard-00-00-uiwkf.mongodb.net:27017,pruebas-shard-00-01-uiwkf.mongodb.net:27017,pruebas-shard-00-02-uiwkf.mongodb.net:27017/pruebas?ssl=true&replicaSet=pruebas-shard-0&authSource=admin";
-
-mongoose.connect(uri);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("Conectado con MongoDB ...");
-});
-
-
-var userSchemaJSON={
-	email:String,
-	password:String
-};
-
-var user_schema = new Schema(userSchemaJSON);
-var User = mongoose.model("User", user_schema);
-// mongoose.then(function(User){});
  
 app.use("estatico",express.static("public"));
 app.use("estatico",express.static("assets"));
