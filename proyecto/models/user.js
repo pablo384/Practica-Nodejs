@@ -6,13 +6,14 @@ mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("Conectado con MongoDB ...");
+  console.log("-------------Conectado con MongoDB-----------------------------");
 });
 
 //Esquemas son la estructura de nuestro Objeto
 
 var user_schema = new Schema({
 	name:String,
+	last_name:String,
 	username:String,
 	password:String,
 	age:Number,
@@ -20,6 +21,19 @@ var user_schema = new Schema({
 	date_of_birth:Date
 
 });
+user_schema.virtual("password_confirmation").get(function () {
+	return this.p_c;
+}).set(function (password) {
+	this.p_c=password;
+})
+
+// user_schema.virtual("full_name").get(function () {
+// 	return this.name+this.last_name;
+// }).set(function (full_name) {
+// 	var words =  full_name.split(" ");
+// 	this.name=words[0];
+// 	this.last_name=words[1];
+// })
 
 //Creando MOdelo
 var User = mongoose.model("User", user_schema);
