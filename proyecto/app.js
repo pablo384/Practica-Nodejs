@@ -33,7 +33,7 @@ app.get("/signup", function (req, res) {
         console.log(doc);
         res.render("signup");
     })    
-});
+}); 
 app.get("/login", function (req, res) {
     res.render("login");
        
