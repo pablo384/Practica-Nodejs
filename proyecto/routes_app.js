@@ -1,6 +1,7 @@
 var express = require("express");
 var Imagen = require("./models/imagenes");
 var router = express.Router();
+var img_finder_middleware = require("./middlewares/find_image");
 /* app.com/app/ */
 router.get("/", function (req,res) {
 	/* Buscar el usuario */
@@ -13,36 +14,29 @@ router.get("/imagenes/new", function (req,res) {
 	res.render("app/imagenes/new");
 	
 })
+
+router.all("/imagenes/:id*", img_finder_middleware);
+
 router.get("/imagenes/:id/edit", function (req,res) {
-	Imagen.findById(req.params.id, function (err,img) {
-		// if (!err) {	}
-		res.render("app/imagenes/edit", {imagen: img});
-	});
+	res.render("app/imagenes/edit");
 })
 
 
 router.route("/imagenes/:id")
 	.get(function (req,res) {
-		Imagen.findById(req.params.id, function (err,img) {
-			// if (!err) {	}
-			res.render("app/imagenes/show", {imagen: img});
-		});
+		res.render("app/imagenes/show");
 		
 	})
 	.put(function (req,res) {
 		
-		Imagen.findById(req.params.id, function (err,img) {
-			// if (!err) {	}
-			img.title = req.body.title;
-			img.save(function (err) {
-				if (!err) {
-					res.render("app/imagenes/show", {imagen: img});
-				}else {
-					res.render("app/imagenes/"+img.id+"/edit", {imagen: img});
-				}
-			})
-			
-		});
+		res.locals.imagen.title = req.body.title;
+		res.locals.imagen.save(function (err) {
+			if (!err) {
+				res.render("app/imagenes/show");
+			}else {
+				res.render("app/imagenes/"+req.params.id+"/edit");
+			}
+		})
 
 
 	})
