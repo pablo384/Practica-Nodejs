@@ -55,14 +55,16 @@ router.route("/imagenes/:id")
 
 router.route("/imagenes")
 	.get(function (req,res) {
-		Imagen.find({}, function (err, imgs) {
+		Imagen.find({creator: res.locals.user._id}, function (err, imgs) {
 			if (err) { res.redirect("/app");return;}
 			res.render("app/imagenes/index", {imagenes:imgs});
 		});
 	})
 	.post(function (req,res) {
+		console.log(res.locals.user._id);
 		var data = {
-			title: req.body.title
+			title: req.body.title,
+			creator: res.locals.user._id
 		}
 
 		var imagen = new Imagen(data);
@@ -71,6 +73,7 @@ router.route("/imagenes")
 			if (!err) {
 				res.redirect("/app/imagenes/"+imagen._id);
 			}else {
+				console.log(imagen);
 				res.render(err);
 			}
 		})
