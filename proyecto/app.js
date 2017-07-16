@@ -4,6 +4,10 @@ var User = require("./models/user").User;
 var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
+
+var methodOverride = require("method-override");
+
+
 var app = express();
 
  
@@ -12,6 +16,7 @@ app.use("/public",express.static("public"));
 app.use(bodyParser.json()); //peticiones application/json
 app.use(bodyParser.urlencoded({extended:true})); 
 app.set("view engine", "jade");
+app.use(methodOverride("_method"));
 // app.use(session({
 //     secret:"asdf2fs1a23sdfssa3d1",
 //     resave: false,
