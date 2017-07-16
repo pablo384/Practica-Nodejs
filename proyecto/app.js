@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 var User = require("./models/user").User;
-var session = require("express-session");
+var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
 var app = express();
@@ -12,11 +12,15 @@ app.use("/public",express.static("public"));
 app.use(bodyParser.json()); //peticiones application/json
 app.use(bodyParser.urlencoded({extended:true})); 
 app.set("view engine", "jade");
-app.use(session({
-    secret:"asdf2fs1a23sdfssa3d1",
-    resave: false,
-    saveUnitialized: false
-}));
+// app.use(session({
+//     secret:"asdf2fs1a23sdfssa3d1",
+//     resave: false,
+//     saveUnitialized: false
+// }));
+app.use(cookieSession({
+    name: "session",
+    keys: ["llave-1", "llave-2"]
+}))
 
 app.get("/", function (req, res) {
     console.log(req.session.user_id);
