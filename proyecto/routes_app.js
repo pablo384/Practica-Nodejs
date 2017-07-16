@@ -47,7 +47,16 @@ router.route("/imagenes/:id")
 
 	})
 	.delete(function (req,res) {
-		
+		//eliminar imagen
+		Imagen.findOneAndRemove({_id:req.params.id}, function (err) {
+			if (!err) {
+				res.redirect("/app/imagenes");
+			}else {
+				console.log(err);
+				res.redirect("/app/iamgenes/"+req.params.id);
+			}
+			
+		})
 	})
 
 router.route("/imagenes")
