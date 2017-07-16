@@ -10,17 +10,20 @@ db.once('open', function() {
 });
 
 //Esquemas son la estructura de nuestro Objeto
-
+var posibles_valores=["M", "F"];
+var email_match=[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,"Coloca un email valido"];
 var user_schema = new Schema({
 	name:String,
 	last_name:String,
-	username:String,
-	password:String,
-	age:Number,
-	email:String,
-	date_of_birth:Date
+	username:{type:String, require:true, maxLength:[50,"Username muy grande"]},
+	password:{type:String, minLength:[8,"El password es muy corto"]},
+	age:{type:Number, min:[5, "La edad no puede ser menor que 5"], max:[100,"La edad no puede ser mayor que 100"]},
+	email:{type:String, require:"El correo es obligatorio", match:email_match},
+	date_of_birth:Date,
+	sex:{type:String, enum:{values:posibles_valores, message:"Opcion no validad"}}
 
-});
+})
+
 user_schema.virtual("password_confirmation").get(function () {
 	return this.p_c;
 }).set(function (password) {

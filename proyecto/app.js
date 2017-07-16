@@ -33,7 +33,7 @@ app.post("/users", function (req,res) {
 	console.log(req.body.password_confirmation);
 	user.save(function (err) {
 		if (err) {
-			console.log(err);
+			console.log(String(err));
 		}else {
 			res.send("Guardamos tus datos");
 		}
