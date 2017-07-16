@@ -35,7 +35,10 @@ router.route("/imagenes/:id")
 
 router.route("/imagenes")
 	.get(function (req,res) {
-		
+		Imagen.find({}, function (err, imgs) {
+			if (err) { res.redirect("/app");return;}
+			res.render("app/imagenes/index", {imagenes:imgs});
+		});
 	})
 	.post(function (req,res) {
 		var data = {
