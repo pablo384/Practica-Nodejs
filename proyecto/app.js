@@ -7,8 +7,8 @@ var session_middleware = require("./middlewares/session");
 var app = express();
 
  
-app.use("estatico",express.static("public"));
-app.use("estatico",express.static("assets"));
+app.use("/public",express.static("public"));
+// app.use("estatico",express.static("assets"));
 app.use(bodyParser.json()); //peticiones application/json
 app.use(bodyParser.urlencoded({extended:true})); 
 app.set("view engine", "jade");
@@ -47,7 +47,7 @@ app.post("/sessions", function (req,res) {
             // res.send("Hola Mundo");
 
             req.session.user_id= user._id;
-            res.send("Hola Mundo");
+            res.redirect("/app");
         
     })
 
