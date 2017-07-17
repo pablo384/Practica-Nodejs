@@ -4,6 +4,8 @@ var User = require("./models/user").User;
 var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
+var formidable = require("express-form-data");
+
 
 var methodOverride = require("method-override");
 
@@ -25,7 +27,8 @@ app.use(methodOverride("_method"));
 app.use(cookieSession({
     name: "session",
     keys: ["llave-1", "llave-2"]
-}))
+})) /* uploadDir:"images" */
+app.use(formidable.parse({ keepExtensions:true}));
 
 app.get("/", function (req, res) {
     console.log(req.session.user_id);
