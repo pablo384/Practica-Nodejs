@@ -5,8 +5,13 @@ var img_finder_middleware = require("./middlewares/find_image");
 var fs = require("fs");
 /* app.com/app/ */
 router.get("/", function (req,res) {
-	/* Buscar el usuario */
-	res.render("app/home");
+	Imagen.find({})
+	.populate("creator")
+	.exec(function (err,imgs) {
+		if (err) {console.log(err)}
+		res.render("app/home", {imagenes:imgs});
+	})
+	
 });
 
 /* REST */
